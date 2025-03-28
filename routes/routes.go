@@ -11,6 +11,6 @@ func SetupRouter() *gin.Engine {
 
 	r.GET("/users", controllers.GetAllUsers)
 	r.GET("/merchants", controllers.GetAllMerchants)
-
+	r.POST("/transactions", controllers.CreateTransaction)
 	return r
 }
