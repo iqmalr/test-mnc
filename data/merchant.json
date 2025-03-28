@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "merchant_name": "Bradtke, Braun and Bogan",
+    "bank_account": "tz1SFv8yTbYyMogzUHWvymJcyiQ1gKBCAo3a"
+  },
+  {
+    "id": 2,
+    "merchant_name": "Kris, Lueilwitz and Kilback",
+    "bank_account": "tz1M8dsxL4xytuF2Zo4wVy2UmqkUoA9f7fpe"
+  },
+  {
+    "id": 3,
+    "merchant_name": "Bernhard-Bins",
+    "bank_account": "tz1QHAnh2f6BgxGnWBT5c7UgcccUDLZowmDW"
+  },
+  {
+    "id": 4,
+    "merchant_name": "Stoltenberg, Romaguera and Boyle",
+    "bank_account": "tz1dpXQm5ruNv5LeAVpejVqBt75wNbaUE9FW"
+  },
+  {
+    "id": 5,
+    "merchant_name": "White-Reichel",
+    "bank_account": "tz1UtTa56Cww23fwxw7TyEmBA3VUp9Yh6rF2"
+  }
+]
