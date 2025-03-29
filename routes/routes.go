@@ -4,6 +4,8 @@ import (
 	"test-mnc/controllers"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func SetupRouter() *gin.Engine {
@@ -16,5 +18,7 @@ func SetupRouter() *gin.Engine {
 	r.GET("/payments", controllers.GetAllPayments)
 	r.POST("/payments", controllers.CreatePayment)
 	r.GET("/recap", controllers.GetInstallmentRecap)
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r
 }

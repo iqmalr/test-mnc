@@ -9,6 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// GetAllUsers godoc
+// @Summary Get all users
+// @Description Menampilkan daftar semua pengguna
+// @Tags users
+// @Produce json
+// @Success 200 {array} models.User
+// @Failure 500 {object} map[string]interface{}
+// @Router /users [get]
 func GetAllUsers(c *gin.Context) {
 	file, err := os.ReadFile("data/user.json")
 	if err != nil {

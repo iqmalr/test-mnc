@@ -1,0 +1,43 @@
+basePath: /
+definitions:
+  models.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+host: localhost:8082
+info:
+  contact:
+    email: support@example.com
+    name: API Support
+    url: http://www.example.com/support
+  description: API untuk test MNC
+  termsOfService: http://swagger.io/terms/
+  title: MNC Test API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      description: Menampilkan daftar semua pengguna
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Get all users
+      tags:
+      - users
+swagger: "2.0"
