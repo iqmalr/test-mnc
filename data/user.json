@@ -28,5 +28,11 @@
     "name": "Jamie Shipley",
     "email": "jshipley4@webnode.com",
     "password": "password"
+  },
+  {
+    "id": 6,
+    "name": "Iqmalr",
+    "email": "iqmalr@gmail.com",
+    "password": "password"
   }
 ]
