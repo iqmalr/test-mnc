@@ -54,7 +54,7 @@ const docTemplate = `{
                         "BearerAuth": []
                     }
                 ],
-                "description": "Membuat cicilan baru",
+                "description": "Membuat transaksi baru",
                 "consumes": [
                     "application/json"
                 ],
@@ -72,7 +72,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Installment"
+                            "$ref": "#/definitions/models.InstallmentRequest"
                         }
                     }
                 ],
@@ -409,6 +409,20 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.InstallmentRequest": {
+            "type": "object",
+            "properties": {
+                "merchant_id": {
+                    "type": "integer"
+                },
+                "total_amount": {
+                    "type": "number"
                 },
                 "user_id": {
                     "type": "integer"

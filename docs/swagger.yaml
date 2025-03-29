@@ -37,6 +37,15 @@ definitions:
       user_id:
         type: integer
     type: object
+  models.InstallmentRequest:
+    properties:
+      merchant_id:
+        type: integer
+      total_amount:
+        type: number
+      user_id:
+        type: integer
+    type: object
   models.LoginRequest:
     properties:
       email:
@@ -134,14 +143,14 @@ paths:
     post:
       consumes:
       - application/json
-      description: Membuat cicilan baru
+      description: Membuat transaksi baru
       parameters:
       - description: Data Cicilan
         in: body
         name: installment
         required: true
         schema:
-          $ref: '#/definitions/models.Installment'
+          $ref: '#/definitions/models.InstallmentRequest'
       produces:
       - application/json
       responses:

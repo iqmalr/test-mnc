@@ -13,26 +13,31 @@ import (
 
 // CreateInstallment godoc
 // @Summary Create new installment
-// @Description Membuat cicilan baru
+// @Description Membuat transaksi baru
 // @Tags installment
 // @Accept json
 // @Security BearerAuth
 // @Produce json
-// @Param installment body models.Installment true "Data Cicilan"
+// @Param installment body models.InstallmentRequest true "Data Cicilan"
 // @Success 201 {object} models.Installment
 // @Failure 400 {object} utils.ErrorResponse "Data tidak valid"
 // @Failure 500 {object} utils.ErrorResponse "Kesalahan server"
 // @Router /installment [post]
 func CreateInstallment(c *gin.Context) {
-	var newInstallment models.Installment
+	var request models.InstallmentRequest
 
-	if err := c.ShouldBindJSON(&newInstallment); err != nil {
+	if err := c.ShouldBindJSON(&request); err != nil {
 		utils.HandleValidationError(c, err)
 		return
 	}
 
-	newInstallment.CreatedAt = time.Now()
-	newInstallment.UpdatedAt = time.Now()
+	newInstallment := models.Installment{
+		UserID:      request.UserID,
+		MerchantID:  request.MerchantID,
+		TotalAmount: request.TotalAmount,
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
+	}
 
 	const filePath = "data/installment.json"
 	file, err := os.ReadFile(filePath)
@@ -69,6 +74,7 @@ func CreateInstallment(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, newInstallment)
 }
+
 
 // GetAllInstallment godoc
 // @Summary Get all installments

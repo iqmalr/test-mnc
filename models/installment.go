@@ -10,3 +10,9 @@ type Installment struct {
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at"`
 }
+
+type InstallmentRequest struct {
+	UserID      int       `json:"user_id"`
+	MerchantID  int       `json:"merchant_id"`
+	TotalAmount float64   `json:"total_amount"`
+}
