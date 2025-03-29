@@ -18,6 +18,8 @@ func SetupRouter() *gin.Engine {
 	r.GET("/payments", controllers.GetAllPayments)
 	r.POST("/payments", controllers.CreatePayment)
 	r.GET("/recap", controllers.GetInstallmentRecap)
+	r.POST("/login", controllers.Login)
+	r.POST("/logout", controllers.Logout)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r

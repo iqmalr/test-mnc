@@ -38,6 +38,18 @@ definitions:
       user_id:
         type: integer
     type: object
+  models.LoginRequest:
+    properties:
+      email:
+        example: iqmalr@gmail.com
+        type: string
+      password:
+        example: password
+        type: string
+    required:
+    - email
+    - password
+    type: object
   models.Merchant:
     properties:
       bank_account:
@@ -143,6 +155,50 @@ paths:
       summary: Create new installment
       tags:
       - installment
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: 'Autentikasi user dengan email: "iqmalr@gmail.com" dan password:
+        "password"'
+      parameters:
+      - description: Email dan Password
+        in: body
+        name: credentials
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token JWT
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Input tidak valid
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "401":
+          description: Login gagal
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      summary: Login user
+      tags:
+      - auth
+  /logout:
+    post:
+      description: Menghapus token JWT
+      responses:
+        "200":
+          description: Logout berhasil
+          schema:
+            type: string
+      summary: Logout user
+      tags:
+      - auth
   /merchants:
     get:
       description: Mengambil daftar semua merchant
