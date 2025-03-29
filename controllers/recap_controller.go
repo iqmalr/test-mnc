@@ -5,34 +5,41 @@ import (
 	"net/http"
 	"os"
 	"test-mnc/models"
+	"test-mnc/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
+// GetInstallmentRecap godoc
+// @Summary Get installment recap
+// @Description Mengambil rekap cicilan dan status pembayaran
+// @Tags installment
+// @Produce json
+// @Success 200 {array} models.InstallmentRecap
+// @Failure 500 {object} utils.ErrorResponse "Kesalahan server"
+// @Router /recap [get]
 func GetInstallmentRecap(c *gin.Context) {
 	installmentFile, err := os.ReadFile("data/installment.json")
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal get data installment"})
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
 	var installments []models.Installment
-	err = json.Unmarshal(installmentFile, &installments)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal decode data installment"})
+	if err = json.Unmarshal(installmentFile, &installments); err != nil {
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
 	paymentFile, err := os.ReadFile("data/payment.json")
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal membaca data payment"})
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
 	var payments []models.Payment
-	err = json.Unmarshal(paymentFile, &payments)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal decode data payment"})
+	if err = json.Unmarshal(paymentFile, &payments); err != nil {
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 

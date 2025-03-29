@@ -194,6 +194,35 @@ const docTemplate = `{
                 }
             }
         },
+        "/recap": {
+            "get": {
+                "description": "Mengambil rekap cicilan dan status pembayaran",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "installment"
+                ],
+                "summary": "Get installment recap",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.InstallmentRecap"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Kesalahan server",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/users": {
             "get": {
                 "description": "Menampilkan daftar semua pengguna",
@@ -236,6 +265,41 @@ const docTemplate = `{
                 },
                 "merchant_id": {
                     "type": "integer"
+                },
+                "total_amount": {
+                    "type": "number"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.InstallmentRecap": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "merchant_id": {
+                    "type": "integer"
+                },
+                "payments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Payment"
+                    }
+                },
+                "remaining": {
+                    "type": "number"
+                },
+                "status": {
+                    "type": "string"
                 },
                 "total_amount": {
                     "type": "number"
