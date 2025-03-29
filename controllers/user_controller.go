@@ -12,11 +12,13 @@ import (
 
 // GetAllUsers godoc
 // @Summary Get all users
-// @Description Menampilkan daftar semua pengguna
+// @Description Menampilkan daftar semua pengguna, membutuhkan token Bearer
 // @Tags users
+// @Security Bearer
 // @Produce json
 // @Success 200 {array} models.User
-// @Failure 500 {object} utils.ErrorResponse
+// @Failure 401 {object} utils.ErrorResponse "Unauthorized"
+// @Failure 500 {object} utils.ErrorResponse "Internal Server Error"
 // @Router /users [get]
 func GetAllUsers(c *gin.Context) {
 	file, err := os.ReadFile("data/user.json")

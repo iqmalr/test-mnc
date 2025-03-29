@@ -103,7 +103,6 @@ info:
     email: m.iqmal.riffai@gmail.com
     name: API Support
   description: API untuk test MNC
-  termsOfService: http://swagger.io/terms/
   title: MNC Test API
   version: "1.0"
 paths:
@@ -287,7 +286,7 @@ paths:
       - installment
   /users:
     get:
-      description: Menampilkan daftar semua pengguna
+      description: Menampilkan daftar semua pengguna, membutuhkan token Bearer
       produces:
       - application/json
       responses:
@@ -297,11 +296,23 @@ paths:
             items:
               $ref: '#/definitions/models.User'
             type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
         "500":
           description: Internal Server Error
           schema:
             $ref: '#/definitions/utils.ErrorResponse'
+      security:
+      - Bearer: []
       summary: Get all users
       tags:
       - users
+securityDefinitions:
+  BearerAuth:
+    description: Masukkan token dengan format "Bearer {token}"
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

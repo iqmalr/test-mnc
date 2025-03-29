@@ -9,6 +9,10 @@ import (
 // @title           MNC Test API
 // @version         1.0
 // @description     API untuk test MNC
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Masukkan token dengan format "Bearer {token}"
 // @termsOfService  http://swagger.io/terms/
 
 // @contact.name   API Support

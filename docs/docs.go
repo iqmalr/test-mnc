@@ -9,7 +9,6 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "API Support",
             "email": "m.iqmal.riffai@gmail.com"
@@ -291,7 +290,12 @@ const docTemplate = `{
         },
         "/users": {
             "get": {
-                "description": "Menampilkan daftar semua pengguna",
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ],
+                "description": "Menampilkan daftar semua pengguna, membutuhkan token Bearer",
                 "produces": [
                     "application/json"
                 ],
@@ -307,6 +311,12 @@ const docTemplate = `{
                             "items": {
                                 "$ref": "#/definitions/models.User"
                             }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
                         }
                     },
                     "500": {
@@ -466,6 +476,14 @@ const docTemplate = `{
                     "type": "integer"
                 }
             }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Masukkan token dengan format \"Bearer {token}\"",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
         }
     }
 }`
