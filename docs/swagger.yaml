@@ -24,6 +24,25 @@ definitions:
       merchant_name:
         type: string
     type: object
+  models.Payment:
+    properties:
+      amount:
+        type: number
+      created_at:
+        type: string
+      id:
+        type: integer
+      merchant_id:
+        type: integer
+      payment_method:
+        type: string
+      transaction_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
   models.User:
     properties:
       email:
@@ -120,6 +139,54 @@ paths:
       summary: Get all merchants
       tags:
       - merchant
+  /payments:
+    get:
+      description: Mengambil daftar semua pembayaran
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Payment'
+            type: array
+        "500":
+          description: Kesalahan server
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      summary: Get all payments
+      tags:
+      - payment
+    post:
+      consumes:
+      - application/json
+      description: Membuat pembayaran baru
+      parameters:
+      - description: Data Pembayaran
+        in: body
+        name: payment
+        required: true
+        schema:
+          $ref: '#/definitions/models.Payment'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Payment'
+        "400":
+          description: Data tidak valid
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+        "500":
+          description: Kesalahan server
+          schema:
+            $ref: '#/definitions/utils.ErrorResponse'
+      summary: Create new payment
+      tags:
+      - payment
   /users:
     get:
       description: Menampilkan daftar semua pengguna
