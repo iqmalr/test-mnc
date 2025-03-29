@@ -20,6 +20,6 @@ import (
 func main() {
 	r := routes.SetupRouter()
 
-	fmt.Println("Server running at http://localhost:8081")
+	fmt.Println("Server running at http://localhost:8082")
 	r.Run(":8082")
 }

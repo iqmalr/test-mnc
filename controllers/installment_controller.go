@@ -5,71 +5,100 @@ import (
 	"net/http"
 	"os"
 	"test-mnc/models"
+	"test-mnc/utils"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
+// CreateInstallment godoc
+// @Summary Create new installment
+// @Description Membuat cicilan baru
+// @Tags installment
+// @Accept json
+// @Produce json
+// @Param installment body models.Installment true "Data Cicilan"
+// @Success 201 {object} models.Installment
+// @Failure 400 {object} utils.ErrorResponse "Data tidak valid"
+// @Failure 500 {object} utils.ErrorResponse "Kesalahan server"
+// @Router /installment [post]
 func CreateInstallment(c *gin.Context) {
 	var newInstallment models.Installment
 
 	if err := c.ShouldBindJSON(&newInstallment); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Data tidak valid"})
+		utils.HandleValidationError(c, err)
 		return
 	}
 
 	newInstallment.CreatedAt = time.Now()
 	newInstallment.UpdatedAt = time.Now()
 
-	file, err := os.ReadFile("data/installment.json")
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error transaksi"})
+	const filePath = "data/installment.json"
+	file, err := os.ReadFile(filePath)
+	if err != nil && !os.IsNotExist(err) {
+		utils.HandleDatabaseError(c, "membaca", err)
 		return
 	}
 
-	var installment []models.Installment
+	var installments []models.Installment
 	if len(file) > 0 {
-		err = json.Unmarshal(file, &installment)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error transaksi"})
+		if err = json.Unmarshal(file, &installments); err != nil {
+			utils.HandleDatabaseError(c, "parse", err)
 			return
 		}
 	}
 
 	newInstallment.ID = 1
-	if len(installment) > 0 {
-		newInstallment.ID = installment[len(installment)-1].ID + 1
+	if len(installments) > 0 {
+		newInstallment.ID = installments[len(installments)-1].ID + 1
 	}
 
-	installment = append(installment, newInstallment)
+	installments = append(installments, newInstallment)
 
-	updatedData, err := json.MarshalIndent(installment, "", "  ")
+	updatedData, err := json.MarshalIndent(installments, "", "  ")
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal mengonversi JSON transaksi"})
+		utils.HandleDatabaseError(c, "mengonversi", err)
 		return
 	}
-	err = os.WriteFile("data/transaction.json", updatedData, 0644)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Gagal menyimpan transaksi"})
+
+	if err = os.WriteFile(filePath, updatedData, 0644); err != nil {
+		utils.HandleDatabaseError(c, "menyimpan", err)
 		return
 	}
 
 	c.JSON(http.StatusCreated, newInstallment)
 }
 
+// GetAllInstallment godoc
+// @Summary Get all installments
+// @Description Menampilkan daftar semua cicilan
+// @Tags installment
+// @Produce json
+// @Success 200 {array} models.Installment
+// @Failure 500 {object} utils.ErrorResponse
+// @Router /installment [get]
 func GetAllInstallment(c *gin.Context) {
-	file, err := os.ReadFile("data/installment.json")
+	const filePath = "data/installment.json"
+	file, err := os.ReadFile(filePath)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error get data"})
+		if os.IsNotExist(err) {
+			c.JSON(http.StatusOK, []models.Installment{})
+			return
+		}
+		utils.HandleDatabaseError(c, "membaca", err)
 		return
 	}
 
-	var installment []models.Installment
-	err = json.Unmarshal(file, &installment)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Eror umarshal data"})
+	if len(file) == 0 {
+		c.JSON(http.StatusOK, []models.Installment{})
 		return
 	}
 
-	c.JSON(http.StatusOK, installment)
+	var installments []models.Installment
+	if err = json.Unmarshal(file, &installments); err != nil {
+		utils.HandleDatabaseError(c, "parse", err)
+		return
+	}
+
+	c.JSON(http.StatusOK, installments)
 }
