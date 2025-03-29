@@ -458,9 +458,6 @@ const docTemplate = `{
                 "id": {
                     "type": "integer"
                 },
-                "merchant_id": {
-                    "type": "integer"
-                },
                 "payment_method": {
                     "type": "string"
                 },
@@ -469,9 +466,6 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "type": "string"
-                },
-                "user_id": {
-                    "type": "integer"
                 }
             }
         },
@@ -482,19 +476,11 @@ const docTemplate = `{
                     "type": "number",
                     "example": 200000
                 },
-                "merchant_id": {
-                    "type": "integer",
-                    "example": 2
-                },
                 "payment_method": {
                     "type": "string",
                     "example": "bank_transfer"
                 },
                 "transaction_id": {
-                    "type": "integer",
-                    "example": 1
-                },
-                "user_id": {
                     "type": "integer",
                     "example": 1
                 }

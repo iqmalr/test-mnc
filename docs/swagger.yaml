@@ -66,32 +66,22 @@ definitions:
         type: string
       id:
         type: integer
-      merchant_id:
-        type: integer
       payment_method:
         type: string
       transaction_id:
         type: integer
       updated_at:
         type: string
-      user_id:
-        type: integer
     type: object
   models.PaymentRequest:
     properties:
       amount:
         example: 200000
         type: number
-      merchant_id:
-        example: 2
-        type: integer
       payment_method:
         example: bank_transfer
         type: string
       transaction_id:
-        example: 1
-        type: integer
-      user_id:
         example: 1
         type: integer
     type: object

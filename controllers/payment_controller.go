@@ -34,8 +34,6 @@ func CreatePayment(c *gin.Context) {
 
 	newPayment := models.Payment{
 		TransactionID: req.TransactionID,
-		UserID:        req.UserID,
-		MerchantID:    req.MerchantID,
 		Amount:        req.Amount,
 		PaymentMethod: req.PaymentMethod,
 		CreatedAt:     time.Now(),
