@@ -13,5 +13,7 @@ func SetupRouter() *gin.Engine {
 	r.GET("/merchants", controllers.GetAllMerchants)
 	r.POST("/installment", controllers.CreateInstallment)
 	r.GET("/installment", controllers.GetAllInstallment)
+	r.GET("/payments", controllers.GetAllPayments)
+	r.POST("/payments", controllers.CreatePayment)
 	return r
 }

@@ -57,7 +57,7 @@ func CreateInstallment(c *gin.Context) {
 	c.JSON(http.StatusCreated, newInstallment)
 }
 
-func GetAllInstallment(c *gin.Context){
+func GetAllInstallment(c *gin.Context) {
 	file, err := os.ReadFile("data/installment.json")
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error get data"})
