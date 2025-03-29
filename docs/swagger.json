@@ -3,17 +3,17 @@
     "info": {
         "description": "API untuk test MNC",
         "title": "MNC Test API",
-        "contact": {
-            "name": "API Support",
-            "email": "m.iqmal.riffai@gmail.com"
-        },
+        "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:8082",
-    "basePath": "/",
     "paths": {
         "/installment": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Menampilkan daftar semua cicilan",
                 "produces": [
                     "application/json"
@@ -41,6 +41,11 @@
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Membuat cicilan baru",
                 "consumes": [
                     "application/json"
@@ -153,6 +158,11 @@
         },
         "/merchants": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Mengambil daftar semua merchant",
                 "produces": [
                     "application/json"
@@ -180,8 +190,13 @@
                 }
             }
         },
-        "/payments": {
+        "/payment": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Mengambil daftar semua pembayaran",
                 "produces": [
                     "application/json"
@@ -189,7 +204,7 @@
                 "tags": [
                     "payment"
                 ],
-                "summary": "Get all payments",
+                "summary": "Get all payment",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -209,6 +224,11 @@
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Membuat pembayaran baru",
                 "consumes": [
                     "application/json"
@@ -227,7 +247,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Payment"
+                            "$ref": "#/definitions/models.PaymentRequest"
                         }
                     }
                 ],
@@ -255,6 +275,11 @@
         },
         "/recap": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Mengambil rekap cicilan dan status pembayaran",
                 "produces": [
                     "application/json"
@@ -286,10 +311,10 @@
             "get": {
                 "security": [
                     {
-                        "Bearer": []
+                        "BearerAuth": []
                     }
                 ],
-                "description": "Menampilkan daftar semua pengguna, membutuhkan token Bearer",
+                "description": "Menampilkan daftar semua pengguna",
                 "produces": [
                     "application/json"
                 ],
@@ -442,6 +467,31 @@
                 }
             }
         },
+        "models.PaymentRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number",
+                    "example": 200000
+                },
+                "merchant_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "payment_method": {
+                    "type": "string",
+                    "example": "bank_transfer"
+                },
+                "transaction_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "user_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
         "models.User": {
             "type": "object",
             "properties": {
@@ -474,7 +524,7 @@
     },
     "securityDefinitions": {
         "BearerAuth": {
-            "description": "Masukkan token dengan format \"Bearer {token}\"",
+            "description": "Masukkan token dengan format **\"{token}\"**",
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"

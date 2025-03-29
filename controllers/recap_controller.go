@@ -14,6 +14,7 @@ import (
 // @Summary Get installment recap
 // @Description Mengambil rekap cicilan dan status pembayaran
 // @Tags installment
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {array} models.InstallmentRecap
 // @Failure 500 {object} utils.ErrorResponse "Kesalahan server"

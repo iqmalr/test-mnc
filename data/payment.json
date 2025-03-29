@@ -18,5 +18,25 @@
     "payment_method": "bank_transfer",
     "created_at": "2025-03-28T22:09:15.4592754+07:00",
     "updated_at": "2025-03-28T22:09:15.4592754+07:00"
+  },
+  {
+    "id": 3,
+    "transaction_id": 1,
+    "user_id": 1,
+    "merchant_id": 2,
+    "amount": 200000,
+    "payment_method": "bank_transfer",
+    "created_at": "2025-03-29T17:09:27.972963+07:00",
+    "updated_at": "2025-03-29T17:09:27.972963+07:00"
+  },
+  {
+    "id": 4,
+    "transaction_id": 2,
+    "user_id": 2,
+    "merchant_id": 1,
+    "amount": 100000,
+    "payment_method": "bank_transfer",
+    "created_at": "2025-03-29T17:18:57.2660697+07:00",
+    "updated_at": "2025-03-29T17:18:57.2660697+07:00"
   }
 ]

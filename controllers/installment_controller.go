@@ -16,6 +16,7 @@ import (
 // @Description Membuat cicilan baru
 // @Tags installment
 // @Accept json
+// @Security BearerAuth
 // @Produce json
 // @Param installment body models.Installment true "Data Cicilan"
 // @Success 201 {object} models.Installment
@@ -73,6 +74,7 @@ func CreateInstallment(c *gin.Context) {
 // @Summary Get all installments
 // @Description Menampilkan daftar semua cicilan
 // @Tags installment
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {array} models.Installment
 // @Failure 500 {object} utils.ErrorResponse

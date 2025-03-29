@@ -12,9 +12,9 @@ import (
 
 // GetAllUsers godoc
 // @Summary Get all users
-// @Description Menampilkan daftar semua pengguna, membutuhkan token Bearer
+// @Description Menampilkan daftar semua pengguna
 // @Tags users
-// @Security Bearer
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {array} models.User
 // @Failure 401 {object} utils.ErrorResponse "Unauthorized"

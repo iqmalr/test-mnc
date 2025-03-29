@@ -17,24 +17,32 @@ import (
 // @Description Membuat pembayaran baru
 // @Tags payment
 // @Accept json
+// @Security BearerAuth
 // @Produce json
-// @Param payment body models.Payment true "Data Pembayaran"
+// @Param payment body models.PaymentRequest true "Data Pembayaran"
 // @Success 201 {object} models.Payment
 // @Failure 400 {object} utils.ErrorResponse "Data tidak valid"
 // @Failure 500 {object} utils.ErrorResponse "Kesalahan server"
-// @Router /payments [post]
+// @Router /payment [post]
 func CreatePayment(c *gin.Context) {
-	var newPayment models.Payment
+	var req models.PaymentRequest
 
-	if err := c.ShouldBindJSON(&newPayment); err != nil {
+	if err := c.ShouldBindJSON(&req); err != nil {
 		utils.HandleValidationError(c, err)
 		return
 	}
 
-	newPayment.CreatedAt = time.Now()
-	newPayment.UpdatedAt = time.Now()
+	newPayment := models.Payment{
+		TransactionID: req.TransactionID,
+		UserID:        req.UserID,
+		MerchantID:    req.MerchantID,
+		Amount:        req.Amount,
+		PaymentMethod: req.PaymentMethod,
+		CreatedAt:     time.Now(),
+		UpdatedAt:     time.Now(),
+	}
 
-	file, err := os.ReadFile("data/payments.json")
+	file, err := os.ReadFile("data/payment.json")
 	if err != nil && !os.IsNotExist(err) {
 		utils.HandleDatabaseError(c, err)
 		return
@@ -61,7 +69,7 @@ func CreatePayment(c *gin.Context) {
 		return
 	}
 
-	if err = os.WriteFile("data/payments.json", updatedData, 0644); err != nil {
+	if err = os.WriteFile("data/payment.json", updatedData, 0644); err != nil {
 		utils.HandleDatabaseError(c, err)
 		return
 	}
@@ -69,16 +77,18 @@ func CreatePayment(c *gin.Context) {
 	c.JSON(http.StatusCreated, newPayment)
 }
 
-// GetAllPayments godoc
-// @Summary Get all payments
+
+// GetAllPayment godoc
+// @Summary Get all payment
 // @Description Mengambil daftar semua pembayaran
 // @Tags payment
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {array} models.Payment
 // @Failure 500 {object} utils.ErrorResponse "Kesalahan server"
-// @Router /payments [get]
-func GetAllPayments(c *gin.Context) {
-	file, err := os.ReadFile("data/payments.json")
+// @Router /payment [get]
+func GetAllPayment(c *gin.Context) {
+	file, err := os.ReadFile("data/payment.json")
 	if err != nil {
 		if os.IsNotExist(err) {
 			c.JSON(http.StatusOK, []models.Payment{})
@@ -88,16 +98,16 @@ func GetAllPayments(c *gin.Context) {
 		return
 	}
 
-	var payments []models.Payment
+	var payment []models.Payment
 	if len(file) == 0 {
 		c.JSON(http.StatusOK, []models.Payment{})
 		return
 	}
 
-	if err = json.Unmarshal(file, &payments); err != nil {
+	if err = json.Unmarshal(file, &payment); err != nil {
 		utils.HandleDatabaseError(c, err)
 		return
 	}
 
-	c.JSON(http.StatusOK, payments)
+	c.JSON(http.StatusOK, payment)
 }

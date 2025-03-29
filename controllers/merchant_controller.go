@@ -15,6 +15,7 @@ import (
 // @Summary Get all merchants
 // @Description Mengambil daftar semua merchant
 // @Tags merchant
+// @Security BearerAuth
 // @Produce json
 // @Success 200 {array} models.Merchant
 // @Failure 500 {object} utils.ErrorResponse "Kesalahan server"

@@ -9,10 +9,7 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {
-            "name": "API Support",
-            "email": "m.iqmal.riffai@gmail.com"
-        },
+        "contact": {},
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -20,6 +17,11 @@ const docTemplate = `{
     "paths": {
         "/installment": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Menampilkan daftar semua cicilan",
                 "produces": [
                     "application/json"
@@ -47,6 +49,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Membuat cicilan baru",
                 "consumes": [
                     "application/json"
@@ -159,6 +166,11 @@ const docTemplate = `{
         },
         "/merchants": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Mengambil daftar semua merchant",
                 "produces": [
                     "application/json"
@@ -186,8 +198,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/payments": {
+        "/payment": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Mengambil daftar semua pembayaran",
                 "produces": [
                     "application/json"
@@ -195,7 +212,7 @@ const docTemplate = `{
                 "tags": [
                     "payment"
                 ],
-                "summary": "Get all payments",
+                "summary": "Get all payment",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -215,6 +232,11 @@ const docTemplate = `{
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Membuat pembayaran baru",
                 "consumes": [
                     "application/json"
@@ -233,7 +255,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Payment"
+                            "$ref": "#/definitions/models.PaymentRequest"
                         }
                     }
                 ],
@@ -261,6 +283,11 @@ const docTemplate = `{
         },
         "/recap": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "Mengambil rekap cicilan dan status pembayaran",
                 "produces": [
                     "application/json"
@@ -292,10 +319,10 @@ const docTemplate = `{
             "get": {
                 "security": [
                     {
-                        "Bearer": []
+                        "BearerAuth": []
                     }
                 ],
-                "description": "Menampilkan daftar semua pengguna, membutuhkan token Bearer",
+                "description": "Menampilkan daftar semua pengguna",
                 "produces": [
                     "application/json"
                 ],
@@ -448,6 +475,31 @@ const docTemplate = `{
                 }
             }
         },
+        "models.PaymentRequest": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "number",
+                    "example": 200000
+                },
+                "merchant_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "payment_method": {
+                    "type": "string",
+                    "example": "bank_transfer"
+                },
+                "transaction_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "user_id": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }
+        },
         "models.User": {
             "type": "object",
             "properties": {
@@ -480,7 +532,7 @@ const docTemplate = `{
     },
     "securityDefinitions": {
         "BearerAuth": {
-            "description": "Masukkan token dengan format \"Bearer {token}\"",
+            "description": "Masukkan token dengan format **\"{token}\"**",
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"
@@ -491,8 +543,8 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "localhost:8082",
-	BasePath:         "/",
+	Host:             "",
+	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "MNC Test API",
 	Description:      "API untuk test MNC",

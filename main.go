@@ -12,12 +12,10 @@ import (
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
-// @description Masukkan token dengan format "Bearer {token}"
+// @description Masukkan token dengan format **"{token}"**
 // @termsOfService  http://swagger.io/terms/
-
 // @contact.name   API Support
 // @contact.email  m.iqmal.riffai@gmail.com
-
 // @host      localhost:8082
 // @BasePath  /
 
