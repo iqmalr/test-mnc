@@ -2,6 +2,14 @@
 
 Proyek ini adalah API sederhana untuk kebutuhan test MNC menggunakan **Golang (Gin)** untuk mengelola transaksi pinjaman uang (_installment_), pembayaran cicilan (_payment_), dan rekap cicilan (_recap_).
 
+## **Demo Project**
+
+Saya telah memindahkan kode ke **Project IDX**, sehingga Anda dapat mencoba demo API tanpa perlu meng-clone proyek ke lokal.
+
+Silakan kunjungi link berikut untuk mengakses **Swagger UI** dan mencoba API secara langsung:
+
+🔗 **[Demo API - Swagger UI](https://8082-idx-test-mnc-1743261436111.cluster-7ubberrabzh4qqy2g4z7wgxuw2.cloudworkstations.dev/swagger/index.html#/)**
+
 ## **Fitur Utama**
 
 - **Create Installment** → Membuat transaksi pinjaman uang.
