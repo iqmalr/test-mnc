@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"test-mnc/models"
+	"test-mnc/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,19 +16,19 @@ import (
 // @Tags users
 // @Produce json
 // @Success 200 {array} models.User
-// @Failure 500 {object} map[string]interface{}
+// @Failure 500 {object} utils.ErrorResponse
 // @Router /users [get]
 func GetAllUsers(c *gin.Context) {
 	file, err := os.ReadFile("data/user.json")
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error get data"})
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
 	var users []models.User
 	err = json.Unmarshal(file, &users)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "eror umarshal data"})
+		utils.HandleError(c, http.StatusInternalServerError, "Error unmarshal data", err)
 		return
 	}
 

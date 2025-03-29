@@ -1,8 +1,6 @@
 package utils
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,15 +26,13 @@ func HandleError(c *gin.Context, statusCode int, message string, err error, deta
 }
 
 func HandleValidationError(c *gin.Context, err error) {
-	HandleError(c, 400, "Data tidak valid", err)
+	HandleError(c, 400, "Validasi gagal", err)
 }
 
-func HandleDatabaseError(c *gin.Context, operation string, err error) {
-	message := fmt.Sprintf("Gagal %s data", operation)
-	HandleError(c, 500, message, err)
+func HandleDatabaseError(c *gin.Context, err error) {
+	HandleError(c, 500, "Gagal mengambil data", err)
 }
 
-func HandleNotFoundError(c *gin.Context, resource string) {
-	message := fmt.Sprintf("%s tidak ditemukan", resource)
-	HandleError(c, 404, message, nil)
+func HandleNotFoundError(c *gin.Context) {
+	HandleError(c, 404, "Data tidak ditemukan", nil)
 }

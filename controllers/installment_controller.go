@@ -36,14 +36,14 @@ func CreateInstallment(c *gin.Context) {
 	const filePath = "data/installment.json"
 	file, err := os.ReadFile(filePath)
 	if err != nil && !os.IsNotExist(err) {
-		utils.HandleDatabaseError(c, "membaca", err)
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
 	var installments []models.Installment
 	if len(file) > 0 {
 		if err = json.Unmarshal(file, &installments); err != nil {
-			utils.HandleDatabaseError(c, "parse", err)
+			utils.HandleDatabaseError(c, err)
 			return
 		}
 	}
@@ -57,12 +57,12 @@ func CreateInstallment(c *gin.Context) {
 
 	updatedData, err := json.MarshalIndent(installments, "", "  ")
 	if err != nil {
-		utils.HandleDatabaseError(c, "mengonversi", err)
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
 	if err = os.WriteFile(filePath, updatedData, 0644); err != nil {
-		utils.HandleDatabaseError(c, "menyimpan", err)
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
@@ -85,7 +85,7 @@ func GetAllInstallment(c *gin.Context) {
 			c.JSON(http.StatusOK, []models.Installment{})
 			return
 		}
-		utils.HandleDatabaseError(c, "membaca", err)
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
@@ -96,7 +96,7 @@ func GetAllInstallment(c *gin.Context) {
 
 	var installments []models.Installment
 	if err = json.Unmarshal(file, &installments); err != nil {
-		utils.HandleDatabaseError(c, "parse", err)
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
