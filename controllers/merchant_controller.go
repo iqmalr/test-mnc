@@ -6,24 +6,33 @@ import (
 	"net/http"
 	"os"
 	"test-mnc/models"
+	"test-mnc/utils"
 
 	"github.com/gin-gonic/gin"
 )
 
+// GetAllMerchants godoc
+// @Summary Get all merchants
+// @Description Mengambil daftar semua merchant
+// @Tags merchant
+// @Produce json
+// @Success 200 {array} models.Merchant
+// @Failure 500 {object} utils.ErrorResponse "Kesalahan server"
+// @Router /merchants [get]
 func GetAllMerchants(c *gin.Context) {
-	log.Println("fetching all merchants...")
+
 	file, err := os.ReadFile("data/merchant.json")
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error get data"})
+		utils.HandleDatabaseError(c, err)
 		return
 	}
 
 	var merchants []models.Merchant
-	err = json.Unmarshal(file, &merchants)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Eror umarshal data"})
+	if err = json.Unmarshal(file, &merchants); err != nil {
+		utils.HandleDatabaseError(c, err)
 		return
 	}
-	log.Printf("successfully retrieved %d merchants", len(merchants))
+
+	log.Printf("Successfully retrieved %d merchants", len(merchants))
 	c.JSON(http.StatusOK, merchants)
 }
