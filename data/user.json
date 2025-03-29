@@ -2,26 +2,31 @@
   {
     "id": 1,
     "name": "Waverly Frend",
-    "email": "wfrend0@hatena.ne.jp"
+    "email": "wfrend0@hatena.ne.jp",
+    "password": "password"
   },
   {
     "id": 2,
     "name": "Heinrick Biernacki",
-    "email": "hbiernacki1@webnode.com"
+    "email": "hbiernacki1@webnode.com",
+    "password": "password"
   },
   {
     "id": 3,
     "name": "Tam Gherardi",
-    "email": "tgherardi2@squidoo.com"
+    "email": "tgherardi2@squidoo.com",
+    "password": "password"
   },
   {
     "id": 4,
     "name": "Phillie Sword",
-    "email": "psword3@usgs.gov"
+    "email": "psword3@usgs.gov",
+    "password": "password"
   },
   {
     "id": 5,
     "name": "Jamie Shipley",
-    "email": "jshipley4@webnode.com"
+    "email": "jshipley4@webnode.com",
+    "password": "password"
   }
 ]

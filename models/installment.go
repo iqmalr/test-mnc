@@ -2,12 +2,11 @@ package models
 
 import "time"
 
-type Transaction struct {
+type Installment struct {
 	ID         int       `json:"id"`
 	UserID     int       `json:"user_id"`
 	MerchantID int       `json:"merchant_id"`
-	Amount     float64   `json:"amount"`
-	Status     string    `json:"status"`
+	TotalAmount     float64   `json:"total_amount"`
 	CreatedAt  time.Time `json:"created_at"`
 	UpdatedAt  time.Time `json:"updated_at"`
 }

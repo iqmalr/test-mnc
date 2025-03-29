@@ -12,14 +12,14 @@ import (
 func GetAllUsers(c *gin.Context) {
 	file, err := os.ReadFile("data/user.json")
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error get JSON"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error get data"})
 		return
 	}
 
 	var users []models.User
 	err = json.Unmarshal(file, &users)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Eror get JSON"})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "eror umarshal data"})
 		return
 	}
 
