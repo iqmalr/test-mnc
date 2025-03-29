@@ -15,5 +15,6 @@ func SetupRouter() *gin.Engine {
 	r.GET("/installment", controllers.GetAllInstallment)
 	r.GET("/payments", controllers.GetAllPayments)
 	r.POST("/payments", controllers.CreatePayment)
+	r.GET("/recap", controllers.GetInstallmentRecap)
 	return r
 }
