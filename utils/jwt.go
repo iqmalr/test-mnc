@@ -26,7 +26,7 @@ func GenerateJWT(user *models.AuthUser) (string, error) {
 func VerifyJWT(tokenString string) (jwt.MapClaims, error) {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			fmt.Println("Invalid Signing Method") // Debug log
+			fmt.Println("Invalid Signing Method")
 			return nil, errors.New("metode tanda tangan tidak valid")
 		}
 		return jwtKey, nil
