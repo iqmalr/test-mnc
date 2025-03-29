@@ -236,7 +236,7 @@ paths:
       summary: Get all merchants
       tags:
       - merchant
-  /payment:
+  /payments:
     get:
       description: Mengambil daftar semua pembayaran
       produces:

@@ -198,7 +198,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/payment": {
+        "/payments": {
             "get": {
                 "security": [
                     {

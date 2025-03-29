@@ -190,7 +190,7 @@
                 }
             }
         },
-        "/payment": {
+        "/payments": {
             "get": {
                 "security": [
                     {
